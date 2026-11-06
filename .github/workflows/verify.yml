@@ -10,6 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
+      - name: Report workflow identity
+        env:
+          WORKFLOW_REF: ${{ github.workflow_ref }}
+          WORKFLOW_SHA: ${{ github.workflow_sha }}
+          COMMIT_SHA: ${{ github.sha }}
+          EVENT_NAME: ${{ github.event_name }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          printf 'workflow_ref=%s\nworkflow_sha=%s\nsha=%s\nevent_name=%s\nrepository=%s\n' "$WORKFLOW_REF" "$WORKFLOW_SHA" "$COMMIT_SHA" "$EVENT_NAME" "$REPOSITORY"
       - name: Verify
         env:
           HEAD_REF: ${{ github.head_ref }}
